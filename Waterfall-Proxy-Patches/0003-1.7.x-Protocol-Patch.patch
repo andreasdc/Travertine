@@ -1,4 +1,4 @@
-From 87c19e474ce3f92b2cb78fe08d1edf94433dca06 Mon Sep 17 00:00:00 2001
+From bf16a14880d4d0fc12a9573a09eca91bf639eb3a Mon Sep 17 00:00:00 2001
 From: Troy Frew <fuzzy_bot@arenaga.me>
 Date: Tue, 15 Nov 2016 10:31:04 -0500
 Subject: [PATCH] 1.7.x Protocol Patch
@@ -753,11 +753,10 @@ index d11a9ea9..07fc21b6 100644
  
      private int entityId;
      private int effectId;
-@@ -20,6 +21,14 @@ public class EntityEffect extends DefinedPacket {
-     private int duration;
+@@ -21,6 +22,14 @@ public class EntityEffect extends DefinedPacket {
      private boolean hideParticles;
  
-+    @Override
+     @Override
 +    protected void v17Read(ByteBuf buf, ProtocolConstants.Direction direction, int protocolVersion) {
 +        this.entityId = buf.readInt();
 +        this.effectId = buf.readUnsignedByte();
@@ -765,14 +764,14 @@ index d11a9ea9..07fc21b6 100644
 +        this.duration = buf.readShort();
 +    }
 +
-     @Override
++    @Override
      public void read(ByteBuf buf) {
          this.entityId = readVarInt(buf);
-@@ -29,6 +38,14 @@ public class EntityEffect extends DefinedPacket {
-         this.hideParticles = buf.readBoolean();
+         this.effectId = buf.readUnsignedByte();
+@@ -30,6 +39,14 @@ public class EntityEffect extends DefinedPacket {
      }
  
-+    @Override
+     @Override
 +    protected void v17Write(ByteBuf buf) {
 +        buf.writeInt(effectId);
 +        buf.writeByte(effectId);
@@ -780,9 +779,10 @@ index d11a9ea9..07fc21b6 100644
 +        buf.writeShort(duration);
 +    }
 +
-     @Override
++    @Override
      public void write(ByteBuf buf) {
          writeVarInt(this.entityId, buf);
+         buf.writeByte(this.effectId);
 diff --git a/protocol/src/main/java/net/md_5/bungee/protocol/packet/EntityRemoveEffect.java b/protocol/src/main/java/net/md_5/bungee/protocol/packet/EntityRemoveEffect.java
 index 7ed2dc3a..9f8d56fc 100644
 --- a/protocol/src/main/java/net/md_5/bungee/protocol/packet/EntityRemoveEffect.java
@@ -808,17 +808,16 @@ index 7ed2dc3a..9f8d56fc 100644
  
      private int entityId;
      private int effectId;
-@@ -23,9 +23,15 @@ public class EntityRemoveEffect extends DefinedPacket {
-         this.effectId = buf.readUnsignedByte();
+@@ -24,8 +24,14 @@ public class EntityRemoveEffect extends DefinedPacket {
      }
  
-+    @Override
+     @Override
 +    protected void v17Read(ByteBuf buf) {
 +        this.entityId = buf.readInt();
 +        this.effectId = buf.readUnsignedByte();
 +    }
 +
-     @Override
++    @Override
      public void write(ByteBuf buf) {
 -        writeVarInt(this.entityId, buf);
 +        writeVarInt(entityId, buf);
@@ -1998,5 +1997,5 @@ index daf12f74..e33861ab 100644
  
      @Override
 -- 
-2.25.1
+2.11.0
 
