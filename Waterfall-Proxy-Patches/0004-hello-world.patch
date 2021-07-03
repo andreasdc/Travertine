@@ -1,0 +1,22 @@
+From fc9f3205b6e2f0bf798a13255e0770d4cb054603 Mon Sep 17 00:00:00 2001
+From: BuildTools <unconfigured@null.spigotmc.org>
+Date: Sat, 3 Jul 2021 20:01:30 +0200
+Subject: [PATCH] hello world
+
+
+diff --git a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
+index 3b0dff08..5512b92b 100644
+--- a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
++++ b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
+@@ -547,7 +547,7 @@ public class BungeeCord extends ProxyServer
+     @Override
+     public String getName()
+     {
+-        return "Travertine";
++        return "cpvpProxy";
+     }
+ 
+     @Override
+-- 
+2.11.0
+
