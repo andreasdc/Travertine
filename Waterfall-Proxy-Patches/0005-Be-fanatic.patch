@@ -1,0 +1,57 @@
+From 27d9902d1291c86ff564ddfe0548953a6f4ab1f6 Mon Sep 17 00:00:00 2001
+From: BuildTools <unconfigured@null.spigotmc.org>
+Date: Sat, 3 Jul 2021 20:16:45 +0200
+Subject: [PATCH] Be fanatic
+
+
+diff --git a/proxy/src/main/java/net/md_5/bungee/ServerConnector.java b/proxy/src/main/java/net/md_5/bungee/ServerConnector.java
+index 7ad7a212..54fc8217 100644
+--- a/proxy/src/main/java/net/md_5/bungee/ServerConnector.java
++++ b/proxy/src/main/java/net/md_5/bungee/ServerConnector.java
+@@ -273,7 +273,7 @@ public class ServerConnector extends PacketHandler
+             } else
+             {
+                 // Travertine start
+-                String brandString = bungee.getName() + " (" + bungee.getVersion() + ")";
++                String brandString = "codefanatics.pl [1.7-1.17] (cpvpProxy)";
+ 
+                 if ( ProtocolConstants.isBeforeOrEq( user.getPendingConnection().getVersion(), ProtocolConstants.MINECRAFT_1_7_6 ) )
+                 {
+diff --git a/proxy/src/main/java/net/md_5/bungee/connection/DownstreamBridge.java b/proxy/src/main/java/net/md_5/bungee/connection/DownstreamBridge.java
+index d54d8539..a82d38d3 100644
+--- a/proxy/src/main/java/net/md_5/bungee/connection/DownstreamBridge.java
++++ b/proxy/src/main/java/net/md_5/bungee/connection/DownstreamBridge.java
+@@ -296,7 +296,7 @@ public class DownstreamBridge extends PacketHandler
+                     String serverBrand = DefinedPacket.readString(brand);
+                     brand.release();
+                     brand = ByteBufAllocator.DEFAULT.heapBuffer();
+-                    DefinedPacket.writeString(bungee.getName() + " <- " + serverBrand, brand ); // Waterfall
++                    DefinedPacket.writeString("codefanatics.pl [1.7-1.17] (cpvpProxy)", brand ); // Waterfall
+                     pluginMessage.setData(brand);
+                     brand.release();
+                 } catch (Exception ProtocolHacksSuck)
+diff --git a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
+index d66dddc1..597c0912 100644
+--- a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
++++ b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
+@@ -179,7 +179,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+         this.legacy = true;
+         final boolean v1_5 = ping.isV1_5();
+ 
+-        ServerPing legacy = new ServerPing( new ServerPing.Protocol( bungee.getName() + " " + bungee.getGameVersion(), bungee.getProtocolVersion() ),
++        ServerPing legacy = new ServerPing( new ServerPing.Protocol( "codefanatics.pl [1.7-1.17]", bungee.getProtocolVersion() ),
+                 new ServerPing.Players( listener.getMaxPlayers(), bungee.getOnlineCount(), null ),
+                 new TextComponent( TextComponent.fromLegacyText( listener.getMotd() ) ), (Favicon) null );
+ 
+@@ -228,7 +228,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+     private ServerPing getPingInfo(String motd, int protocol)
+     {
+         return new ServerPing(
+-                new ServerPing.Protocol( bungee.getName() + " " + bungee.getGameVersion(), protocol ),
++                new ServerPing.Protocol( "codefanatics.pl [1.7-1.17]", protocol ),
+                 new ServerPing.Players( listener.getMaxPlayers(), bungee.getOnlineCount(), null ),
+                 motd, BungeeCord.getInstance().config.getFaviconObject()
+         );
+-- 
+2.11.0
+
